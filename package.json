@@ -1,0 +1,36 @@
+{
+  "engines": {
+    "composer": "^0.19.5"
+  },
+  "name": "drug_chain",
+  "version": "0.0.3",
+  "description": "A composer blockchain implementation to ensure the authenticity and traceability of prescription drugs",
+  "scripts": {
+    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/drug_chain.bna",
+    "pretest": "npm run lint",
+    "lint": "eslint .",
+    "test": "nyc mocha -t 0 test/*.js && cucumber-js"
+  },
+  "keywords": [
+    "composer",
+    "composer-network"
+  ],
+  "author": "Nico Vergauwen - Piet Verguts",
+  "email": "nico.vergauwen@student.howest.be - piet.verguts@student.howest.be",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "composer-admin": "^0.19.5",
+    "composer-cli": "^0.19.5",
+    "composer-client": "^0.19.5",
+    "composer-common": "^0.19.5",
+    "composer-connector-embedded": "^0.19.5",
+    "composer-cucumber-steps": "^0.19.5",
+    "chai": "latest",
+    "chai-as-promised": "latest",
+    "cucumber": "^2.2.0",
+    "eslint": "latest",
+    "nyc": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  }
+}

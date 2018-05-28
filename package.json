@@ -3,7 +3,7 @@
     "composer": "^0.19.5"
   },
   "name": "drug_chain",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "A composer blockchain implementation to ensure the authenticity and traceability of prescription drugs",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/drug_chain.bna",

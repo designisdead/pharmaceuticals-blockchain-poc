@@ -13,17 +13,16 @@
  */
 
 /**
- * Sample access control list.
+ * Access control list.
  */
 
- rule Default {
-  description: "Allow all participants access to all resources"
-  participant: "ANY"
-  operation: ALL
-  resource: "org.howest.mydrugchain.*"
-  action: ALLOW
-
-}
+//  rule Default {
+//   description: "Allow all participants access to all resources"
+//   participant: "ANY"
+//   operation: ALL
+//   resource: "org.howest.mydrugchain.*"
+//   action: ALLOW
+// }
 
 rule SystemACL {
   description: "System ACL to permit all access"
@@ -31,15 +30,82 @@ rule SystemACL {
   operation: ALL
   resource: "org.hyperledger.composer.system.**"
   action: ALLOW
-
 }
-// rule EverybodyCanReadEverything {
-//     description: "Allow all participants read access to all resources"
-//     participant: "org.howest.drugchain.SampleParticipant"
-//     operation: READ
-//     resource: "org.howest.drugchain.*"
-//     action: ALLOW
-// }
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.howest.mydrugchain.*"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule EverybodyCanReadEverything {
+    description: "Allow all participants read access to all resources"
+    participant: "ANY"
+    operation: READ
+    resource: "org.howest.mydrugchain.*"
+    action: ALLOW
+}
+
+rule OnlyOwnerCanUpdateDrugsAsset {
+    description: "Allow only an owner to create / update the drugs asset"
+    participant(p): "org.howest.mydrugchain.*"
+    operation: CREATE,UPDATE
+    resource(r): "org.howest.mydrugchain.Drug"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule OnlyManufacturerCanProduceDrugs {
+    description: "Allow manufacturer to submit production transactions"
+    participant: "org.howest.mydrugchain.Manufacturer"
+    operation: CREATE
+    resource: "org.howest.mydrugchain.DrugItemProduction"
+    action: ALLOW
+}
+
+rule PatientCanNotTransferDrugs {
+    description: "Patient can not submit tranfer transactions"
+    participant: "org.howest.mydrugchain.Patient"
+    operation: CREATE
+    resource: "org.howest.mydrugchain.DrugTransfer"
+    action: DENY
+}
+
+rule EverybodyTransferDrugs {
+    description: "Allow all participants to submit transfer transactions"
+    participant: "org.howest.mydrugchain.*"
+    operation: CREATE
+    resource: "org.howest.mydrugchain.DrugTransfer"
+    action: ALLOW
+}
+
+rule ManufacturerCanNotReceiveDrugs {
+    description: "Manufacturer can not submit receive transactions"
+    participant: "org.howest.mydrugchain.Manufacturer"
+    operation: CREATE
+    resource: "org.howest.mydrugchain.Reception"
+    action: DENY
+}
+
+rule EverybodyCanReceiveDrugs {
+    description: "Allow all participants to submit receive transactions"
+    participant: "org.howest.mydrugchain.*"
+    operation: CREATE
+    resource: "org.howest.mydrugchain.Reception"
+    action: ALLOW
+}
+
+
 
 // rule EverybodyCanSubmitTransactions {
 //     description: "Allow all participants to submit transactions"
@@ -58,26 +124,6 @@ rule SystemACL {
 //     action: ALLOW
 // }
 
-// rule SystemACL {
-//   description:  "System ACL to permit all access"
-//   participant: "org.hyperledger.composer.system.Participant"
-//   operation: ALL
-//   resource: "org.hyperledger.composer.system.**"
-//   action: ALLOW
-// }
 
-// rule NetworkAdminUser {
-//     description: "Grant business network administrators full access to user resources"
-//     participant: "org.hyperledger.composer.system.NetworkAdmin"
-//     operation: ALL
-//     resource: "**"
-//     action: ALLOW
-// }
 
-// rule NetworkAdminSystem {
-//     description: "Grant business network administrators full access to system resources"
-//     participant: "org.hyperledger.composer.system.NetworkAdmin"
-//     operation: ALL
-//     resource: "org.hyperledger.composer.system.**"
-//     action: ALLOW
-// }
+

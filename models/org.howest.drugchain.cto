@@ -23,8 +23,14 @@ asset Drug identified by serialNumber {
   o String productCode
   o String batchNumber
   o String productHash
+  o QuarantinePlacement quarantinePlacement //optional
   --> Manufacturer manufacturer
-  --> Actor owner //optional
+  --> Actor owner
+}
+
+concept QuarantinePlacement {
+  o DateTime start
+  o String reason
 }
 
 abstract participant Actor identified by actorId {
@@ -48,25 +54,25 @@ transaction DrugItemProduction {
   o String serialNumber
   o String productCode
   o String batchNumber
-  o QuarantinePlacement quarantinePlacement //optional
   --> Manufacturer manufacturer
 }
 
-concept QuarantinePlacement {
-  o DateTime start
-  o String reason
+transaction DrugTransfer {
+  --> Drug drug
+  --> Actor newOwner
 }
 
+
+
 transaction Reception {
-  o DateTime receptionDate
   o String serialNumber
   o String productCode
   o String batchNumber
   o String manufacturerId
-  o String originatingType
-  o String receivingType
-  --> Actor originatingParty
-  --> Actor receivingParty
+  // o String originatingType
+  // o String receivingType
+  // --> Actor originatingParty
+  // --> Actor receivingParty
 }
 
 // transaction Reception {
@@ -89,15 +95,19 @@ transaction Reception {
 
 event DrugProductionEvent {
   o String serialNumber
-  o String actorId
+  o String manufacturerId
+}
+
+event DrugTransferEvent {
+  o String serialNumber
+  o String fromId
+  o String toId
 }
 
 event ReceptionEvent {
   o String serialNumber
   o String actorId
+  o Boolean succes
 }
 
-event QuarantineEvent {
-  o String serialNumber
-  o String actorId
-}
+

@@ -1,5 +1,30 @@
+#!/bin/bash
+
+#============================================================
+#
+# FILE: test_script.sh
+#
+# USAGE: test_script.sh
+#
+# DESCRIPTION: script provides basic information on the functionality of the drug_chain application
+#
+# OPTIONS: ---
+# REQUIREMENTS: ---
+# BUGS: ---
+# NOTES: ---
+# AUTHOR: Nico Vergauwen - Piet Verguts
+# COMPANY: Howest
+# VERSION: 1.0
+# CREATED: 31/05/18
+# REFERENCES: man pages
+# DEPENDENCIES: a running composer-rest-server with admin privileges
+#============================================================
+
+#verify network - todo error handling...
 echo "verifying network..."
 composer network ping --card admin@drug_chain
+
+
 echo "create manufacturer"
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
    "$class": "org.howest.mydrugchain.Manufacturer",

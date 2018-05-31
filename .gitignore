@@ -2,6 +2,9 @@
 # bna files
 *.bna
 
+#card files
+*.card
+
 ### Linux ###
 *~
 

@@ -23,7 +23,7 @@ asset Drug identified by serialNumber {
   o String productCode
   o String batchNumber
   o String productHash
-  o QuarantinePlacement quarantinePlacement //optional
+  o QuarantinePlacement quarantinePlacement optional
   --> Manufacturer manufacturer
   --> Actor owner
 }

@@ -4,7 +4,7 @@
 #
 # FILE: test_script.sh
 #
-# USAGE: test_script.sh
+# USAGE: ./test_script.sh
 #
 # DESCRIPTION: script provides basic information on the functionality of the drug_chain application
 #

@@ -69,29 +69,7 @@ transaction Reception {
   o String productCode
   o String batchNumber
   o String manufacturerId
-  // o String originatingType
-  // o String receivingType
-  // --> Actor originatingParty
-  // --> Actor receivingParty
 }
-
-// transaction Reception {
-//   o DateTime receptionDate
-//   --> Actor originatingParty
-//   --> Actor receivingParty
-//   --> Drug drug
-// }
-
-// transaction QuarantinePlacement {
-//   o DateTime start
-//   o String reason
-//   --> Drug drug
-// }
-
-// concept QuarantinePlacement {
-//   o DateTime start
-//   o String reason
-// }
 
 event DrugProductionEvent {
   o String serialNumber
